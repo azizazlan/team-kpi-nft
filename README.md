@@ -1,4 +1,4 @@
-# Chainlink random team creation
+[#](#) Chainlink random team creation
 
 This project was inspired by [Patrick's repo](https://github.com/PatrickAlphaC/dungeons-and-dragons-nft).
 Unlike the original repo which was built using _truffle_, this project uses _hardhat_.
