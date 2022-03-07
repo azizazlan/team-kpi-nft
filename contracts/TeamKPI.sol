@@ -38,7 +38,7 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
   // this limit based on the network that you select, the size of the request,
   // and the processing of the callback request in the fulfillRandomWords()
   // function.
-  uint32 callbackGasLimit = 100000;
+  uint32 callbackGasLimit = 300000;
 
   // The default is 3, but you can set this higher.
   uint16 requestConfirmations = 3;
@@ -84,22 +84,27 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
   // Assumes the subscription is funded sufficiently.
   function requestNewTeamKPI(string memory name) public returns (uint256) {
     // Will revert if subscription is not set and funded.
-    s_requestId = COORDINATOR.requestRandomWords(
+    uint256 requestId = COORDINATOR.requestRandomWords(
       keyHash,
       s_subscriptionId,
       requestConfirmations,
       callbackGasLimit,
       numWords
     );
-    requestToTeamName[s_requestId] = name;
-    requestToSender[s_requestId] = msg.sender;
-    return s_requestId;
+
+    requestToSender[requestId] = msg.sender;
+    requestToTeamName[requestId] = name;
+
+    // Store the latest requestId for this example.
+    s_requestId = requestId;
+
+    return requestId;
   }
 
-  function fulfillRandomWords(
-    uint256, /* requestId */
-    uint256[] memory randomWords
-  ) internal override {
+  function fulfillRandomWords(uint256 requestId, uint256[] memory randomWords)
+    internal
+    override
+  {
     _tokenIds.increment();
     uint256 newItemId = _tokenIds.current();
 
@@ -120,15 +125,10 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
         peopleSkills,
         technicalAbility,
         results,
-        requestToTeamName[s_requestId]
+        requestToTeamName[requestId]
       )
     );
-    _safeMint(requestToSender[s_requestId], newItemId);
-  }
-
-  modifier onlyOwner() {
-    require(msg.sender == s_owner);
-    _;
+    _mint(requestToSender[requestId], newItemId);
   }
 
   function getLevel(uint256 tokenId) public view returns (uint256) {

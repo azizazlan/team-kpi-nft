@@ -1,0 +1,14 @@
+{
+  "name": "Greyhound",
+  "description": "",
+  "image": "",
+  "attributes": [
+    { "trait_type": "Engagement", "value": 56 },
+    { "trait_type": "Energy", "value": 54 },
+    { "trait_type": "Influence", "value": 1 },
+    { "trait_type": "Quality", "value": 50 },
+    { "trait_type": "PeopleSkills", "value": 3 },
+    { "trait_type": "TechnicalAbility", "value": 83 },
+    { "trait_type": "Results", "value": 0 }
+  ]
+}

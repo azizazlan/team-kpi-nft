@@ -6,6 +6,7 @@ import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-ethers';
 import 'hardhat-gas-reporter';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -56,45 +57,83 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   }
 });
 
-task('buildteam', 'Will build three teams').setAction(async (taskArgs, hre) => {
-  const signers = await hre.ethers.getSigners();
-  const contractAddress = `${process.env.CONTRACT_ADDRESS}`;
-  const TeamKPI = await hre.ethers.getContractFactory('TeamKPI');
-  const teamKPI = TeamKPI.attach(contractAddress);
+task('buildteams', 'Will build three teams').setAction(
+  async (taskArgs, hre) => {
+    const signers = await hre.ethers.getSigners();
+    const contractAddress = `${process.env.CONTRACT_ADDRESS}`;
+    const TeamKPI = await hre.ethers.getContractFactory('TeamKPI');
+    const teamKPI = TeamKPI.attach(contractAddress);
 
-  const tx1 = await teamKPI.connect(signers[0]).requestNewTeamKPI('Greyhound');
-  console.log(tx1);
-  const tx2 = await teamKPI
-    .connect(signers[0])
-    .requestNewTeamKPI('Fat Butt Quick');
-  console.log(tx2);
-  const tx3 = await teamKPI
-    .connect(signers[0])
-    .requestNewTeamKPI('Blues Brothers');
-  console.log(tx3);
-});
+    console.log(`Building teams at ${teamKPI.address}`);
 
-task('metadata', 'Generate metadatas').setAction(async (taskArgs, hre) => {
+    const tx1 = await teamKPI
+      .connect(signers[0])
+      .requestNewTeamKPI('Greyhound');
+    console.log(tx1);
+    const tx2 = await teamKPI
+      .connect(signers[0])
+      .requestNewTeamKPI('Fat Butt Quick');
+    console.log(tx2);
+    const tx3 = await teamKPI
+      .connect(signers[0])
+      .requestNewTeamKPI('Blues Brothers');
+    console.log(tx3);
+    const tx4 = await teamKPI
+      .connect(signers[0])
+      .requestNewTeamKPI('Red Devils');
+    console.log(tx4);
+  },
+);
+
+task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
   // Get the smart contract instance
   const signers = await hre.ethers.getSigners();
   const contractAddress = `${process.env.CONTRACT_ADDRESS}`;
   const TeamKPI = await hre.ethers.getContractFactory('TeamKPI');
   const teamKPI = TeamKPI.attach(contractAddress);
   const name = await teamKPI.name();
-  console.log(`Contract name ${name}`);
+  const address = teamKPI.address;
+  console.log(`Contract name ${name} at ${address}`);
+
   // Get number of teams
-  const bnlength = await teamKPI.connect(signers[0]).getNumberOfTeams();
+  const bnlength = await teamKPI.getNumberOfTeams();
   console.log(bnlength);
 
   const length = hre.ethers.BigNumber.from(bnlength).toNumber();
   console.log(`Number of teams ${length}`);
-  let index = 0;
+  let index = 1; // should starts frim 0 but i just want 3
 
   while (index < length) {
     let teamMetadata = metadataTemple;
     let teamOverview = await teamKPI.connect(signers[0]).kpis(index);
     index++;
     teamMetadata['name'] = teamOverview['name'];
+
+    if (
+      fs.existsSync(
+        'metadata/' +
+          teamMetadata['name'].toLowerCase().replace(/\s/g, '-') +
+          '.json',
+      )
+    ) {
+      console.log('test');
+      continue;
+    }
+    console.log(teamMetadata['name']);
+    teamMetadata['attributes'][0]['value'] =
+      teamOverview['engagement'].toNumber();
+    teamMetadata['attributes'][1]['value'] = teamOverview['energy'].toNumber();
+    teamMetadata['attributes'][2]['value'] =
+      teamOverview['influence'].toNumber();
+    teamMetadata['attributes'][3]['value'] = teamOverview['quality'].toNumber();
+    teamMetadata['attributes'][4]['value'] =
+      teamOverview['peopleSkills'].toNumber();
+    teamMetadata['attributes'][5]['value'] =
+      teamOverview['technicalAbility'].toNumber();
+    let filename =
+      'metadata/' + teamMetadata['name'].toLowerCase().replace(/\s/g, '-');
+    let data = JSON.stringify(teamMetadata);
+    fs.writeFileSync(filename + '.json', data);
   }
 });
 

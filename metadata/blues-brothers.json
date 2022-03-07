@@ -1,0 +1,14 @@
+{
+  "name": "Blues Brothers",
+  "description": "",
+  "image": "",
+  "attributes": [
+    { "trait_type": "Engagement", "value": 14 },
+    { "trait_type": "Energy", "value": 60 },
+    { "trait_type": "Influence", "value": 65 },
+    { "trait_type": "Quality", "value": 99 },
+    { "trait_type": "PeopleSkills", "value": 84 },
+    { "trait_type": "TechnicalAbility", "value": 74 },
+    { "trait_type": "Results", "value": 0 }
+  ]
+}
