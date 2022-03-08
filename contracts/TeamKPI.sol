@@ -6,12 +6,16 @@ import 'hardhat/console.sol';
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
+import '@openzeppelin/contracts/access/AccessControl.sol';
 
 import '@chainlink/contracts/src/v0.8/interfaces/LinkTokenInterface.sol';
 import '@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol';
 import '@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol';
 
-contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
+contract TeamKPI is ERC721, ERC721URIStorage, VRFConsumerBaseV2, AccessControl {
+  // Create a new role identifier for the minter role
+  bytes32 public constant MINTER_ROLE = keccak256('MINTER_ROLE');
+
   VRFCoordinatorV2Interface COORDINATOR;
   LinkTokenInterface LINKTOKEN;
 
@@ -53,7 +57,7 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
   address s_owner;
 
   using Counters for Counters.Counter;
-  Counters.Counter private _tokenIds;
+  Counters.Counter private _tokenIdCounter;
 
   struct KPI {
     uint256 engagement;
@@ -78,11 +82,18 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
     COORDINATOR = VRFCoordinatorV2Interface(vrfCoordinator);
     LINKTOKEN = LinkTokenInterface(link);
     s_owner = msg.sender;
+    // Access control
+    _grantRole(MINTER_ROLE, msg.sender);
+    _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     s_subscriptionId = subscriptionId;
   }
 
   // Assumes the subscription is funded sufficiently.
-  function requestNewTeamKPI(string memory name) public returns (uint256) {
+  function requestNewTeamKPI(string memory name)
+    public
+    onlyRole(MINTER_ROLE)
+    returns (uint256)
+  {
     // Will revert if subscription is not set and funded.
     uint256 requestId = COORDINATOR.requestRandomWords(
       keyHash,
@@ -105,8 +116,8 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
     internal
     override
   {
-    _tokenIds.increment();
-    uint256 newItemId = _tokenIds.current();
+    uint256 tokenId = _tokenIdCounter.current();
+    _tokenIdCounter.increment();
 
     uint256 engagement = (randomWords[0] % 100);
     uint256 energy = ((randomWords[0] % 10000) / 100);
@@ -128,7 +139,14 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
         requestToTeamName[requestId]
       )
     );
-    _mint(requestToSender[requestId], newItemId);
+    _safeMint(requestToSender[requestId], tokenId);
+  }
+
+  function setTokenURI(uint256 tokenId, string memory _tokenURI)
+    public
+    onlyRole(MINTER_ROLE)
+  {
+    _setTokenURI(tokenId, _tokenURI);
   }
 
   function getLevel(uint256 tokenId) public view returns (uint256) {
@@ -193,5 +211,29 @@ contract TeamKPI is ERC721URIStorage, VRFConsumerBaseV2 {
       y = z;
       z = (x / z + z) / 2;
     }
+  }
+
+  // The following functions are overrides required by Solidity.
+
+  function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+    super._burn(tokenId);
+  }
+
+  function tokenURI(uint256 tokenId)
+    public
+    view
+    override(ERC721, ERC721URIStorage)
+    returns (string memory)
+  {
+    return super.tokenURI(tokenId);
+  }
+
+  function supportsInterface(bytes4 interfaceId)
+    public
+    view
+    override(ERC721, AccessControl)
+    returns (bool)
+  {
+    return super.supportsInterface(interfaceId);
   }
 }

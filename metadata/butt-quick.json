@@ -1,0 +1,14 @@
+{
+  "name": "Butt Quick",
+  "description": "Super quick team!",
+  "image": "https://ipfs.io/ipfs/QmSQbHvm8Pr1UtaokbC5t3fU9tBDienm4zmEEkGQcZDajR?filename=1.png",
+  "attributes": [
+    { "trait_type": "Engagement", "value": 59 },
+    { "trait_type": "Energy", "value": 55 },
+    { "trait_type": "Influence", "value": 15 },
+    { "trait_type": "Quality", "value": 75 },
+    { "trait_type": "PeopleSkills", "value": 12 },
+    { "trait_type": "TechnicalAbility", "value": 80 },
+    { "trait_type": "Results", "value": 0 }
+  ]
+}

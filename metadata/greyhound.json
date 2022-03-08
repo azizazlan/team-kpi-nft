@@ -1,14 +1,14 @@
 {
   "name": "Greyhound",
-  "description": "",
-  "image": "",
+  "description": "Team KPI using Chainlink VRF",
+  "image": "https://ipfs.io/ipfs/QmciZbbaRoSTGHEzXwAq5uxXCrf4SdwPaC1hdGzaTFheST?filename=0.png",
   "attributes": [
-    { "trait_type": "Engagement", "value": 56 },
-    { "trait_type": "Energy", "value": 54 },
-    { "trait_type": "Influence", "value": 1 },
-    { "trait_type": "Quality", "value": 50 },
-    { "trait_type": "PeopleSkills", "value": 3 },
-    { "trait_type": "TechnicalAbility", "value": 83 },
+    { "trait_type": "Engagement", "value": 83 },
+    { "trait_type": "Energy", "value": 94 },
+    { "trait_type": "Influence", "value": 65 },
+    { "trait_type": "Quality", "value": 74 },
+    { "trait_type": "PeopleSkills", "value": 87 },
+    { "trait_type": "TechnicalAbility", "value": 43 },
     { "trait_type": "Results", "value": 0 }
   ]
 }

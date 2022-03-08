@@ -1,0 +1,14 @@
+{
+  "name": "The Family",
+  "description": "The Godfather equivalent",
+  "image": "https://ipfs.io/ipfs/QmTvXE8t8FidNUd61b13V2rUuwPwNLZFhD6LwczpADtc6H?filename=4.png",
+  "attributes": [
+    { "trait_type": "Engagement", "value": 15 },
+    { "trait_type": "Energy", "value": 47 },
+    { "trait_type": "Influence", "value": 71 },
+    { "trait_type": "Quality", "value": 26 },
+    { "trait_type": "PeopleSkills", "value": 11 },
+    { "trait_type": "TechnicalAbility", "value": 81 },
+    { "trait_type": "Results", "value": 0 }
+  ]
+}

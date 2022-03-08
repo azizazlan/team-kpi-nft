@@ -1,0 +1,14 @@
+{
+  "name": "Greyhound",
+  "description": "Chainlink VRF",
+  "image": "https://ipfs.io/ipfs/QmciZbbaRoSTGHEzXwAq5uxXCrf4SdwPaC1hdGzaTFheST?filename=0.png",
+  "attributes": [
+    { "trait_type": "Engagement", "value": 48 },
+    { "trait_type": "Energy", "value": 20 },
+    { "trait_type": "Influence", "value": 7 },
+    { "trait_type": "Quality", "value": 40 },
+    { "trait_type": "PeopleSkills", "value": 13 },
+    { "trait_type": "TechnicalAbility", "value": 41 },
+    { "trait_type": "Results", "value": 0 }
+  ]
+}
