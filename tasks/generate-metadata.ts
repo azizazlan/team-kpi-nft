@@ -54,7 +54,7 @@ task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
   let index = 0;
 
   console.log(
-    `Create ${length} metadatas for contract name ${name} at ${address}`,
+    `To create ${length} metadatas (json) files and corresponding png files...`,
   );
   while (index < length) {
     const tokenId = index;
@@ -73,9 +73,7 @@ task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
       if (err) {
         throw err;
       } else {
-        console.log(
-          'Successfully copied and moved the PNG to upload directory!',
-        );
+        console.log(`\t ${pathToNewDestination}`);
       }
     });
 
@@ -98,6 +96,10 @@ task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
 
     index++;
   }
+  console.log(
+    'Upload each png file to IPFS, then edit the image property in the corresponding json file',
+  );
+  console.log('Finally upload each json file to IPFS');
 });
 
 export default {};
