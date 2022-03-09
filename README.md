@@ -96,4 +96,4 @@ In addition, each team will have a (string) name.
     npx hardhat seturi --tokenId 0 --uri https://ipfs.io/ipfs/IPFS_CID_HASH?filename=greyhound.json --network rinkeby
     ```
 
-12. Finally, you can check the NFTs at the [ OpenSea ](https://opensea.io/). Ensure you switch to testnet network. It took a while for the image to appear in the OpenSea. You might have to click the refresh button in the NFT card and reload the browser.
+12. Finally, you can check the NFTs at the [ OpenSea ](https://opensea.io/). Ensure you switch to testnet network. It took a while for the image to appear. You might have to click the refresh button in the NFT card and reload the browser.
