@@ -1,7 +1,7 @@
 {
   "name": "Greyhound",
   "description": "Chainlink VRF",
-  "image": "https://ipfs.io/ipfs/QmciZbbaRoSTGHEzXwAq5uxXCrf4SdwPaC1hdGzaTFheST?filename=0.png",
+  "image": "https://ipfs.io/ipfs/Qmc...?filename=greyhound.png",
   "attributes": [
     { "trait_type": "Engagement", "value": 48 },
     { "trait_type": "Energy", "value": 20 },

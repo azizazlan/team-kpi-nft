@@ -11,10 +11,16 @@ task('geturi', 'Get the tokenURI for each token')
 
     const tokenId = taskArgs.tokenid;
 
+    console.log(`${await teamKPI.name()} at address ${contractAddress}`);
+
+    const overview = await teamKPI.getTeamOverView(tokenId);
+    console.log(`Team ${overview[0]}`);
+
     const owner = await teamKPI.ownerOf(tokenId);
     console.log(`Owner ${owner}`);
+
     const uri = await teamKPI.tokenURI(tokenId);
-    console.log(`Token URI ${uri}`);
+    console.log(`URI ${uri}`);
   });
 
 export default {};

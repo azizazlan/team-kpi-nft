@@ -1,14 +1,1 @@
-{
-  "name": "Red Devils",
-  "description": "Devilish fast!",
-  "image": "https://ipfs.io/ipfs/QmQRXcc9caGhBhudhp262sHpQQbd7dLbAmzwd5WgZXx2ha?filename=3.png",
-  "attributes": [
-    { "trait_type": "Engagement", "value": 36 },
-    { "trait_type": "Energy", "value": 8 },
-    { "trait_type": "Influence", "value": 87 },
-    { "trait_type": "Quality", "value": 78 },
-    { "trait_type": "PeopleSkills", "value": 76 },
-    { "trait_type": "TechnicalAbility", "value": 74 },
-    { "trait_type": "Results", "value": 0 }
-  ]
-}
+{"name":"Red Devils","description":"","image":"","attributes":[{"trait_type":"Engagement","value":36},{"trait_type":"Energy","value":8},{"trait_type":"Influence","value":87},{"trait_type":"Quality","value":78},{"trait_type":"PeopleSkills","value":76},{"trait_type":"TechnicalAbility","value":74},{"trait_type":"Results","value":0}]}

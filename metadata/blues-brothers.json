@@ -1,14 +1,1 @@
-{
-  "name": "Blues Brothers",
-  "description": "Jazz blues team",
-  "image": "https://ipfs.io/ipfs/Qmc82iseZHp4T5rT5DWWW1QhocatUUSGwCwX3CZ1XFpLva?filename=2.png",
-  "attributes": [
-    { "trait_type": "Engagement", "value": 97 },
-    { "trait_type": "Energy", "value": 74 },
-    { "trait_type": "Influence", "value": 60 },
-    { "trait_type": "Quality", "value": 13 },
-    { "trait_type": "PeopleSkills", "value": 37 },
-    { "trait_type": "TechnicalAbility", "value": 94 },
-    { "trait_type": "Results", "value": 0 }
-  ]
-}
+{"name":"Blues Brothers","description":"","image":"","attributes":[{"trait_type":"Engagement","value":97},{"trait_type":"Energy","value":74},{"trait_type":"Influence","value":60},{"trait_type":"Quality","value":13},{"trait_type":"PeopleSkills","value":37},{"trait_type":"TechnicalAbility","value":94},{"trait_type":"Results","value":0}]}

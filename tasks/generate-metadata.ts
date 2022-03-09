@@ -64,19 +64,22 @@ task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
     teamMetadata['name'] = teamOverview['name'];
     console.log(`Team ${teamMetadata['name']} tokenId ${tokenId}`);
 
-    index++;
+    // Copy and move PNG file to upload directory
+    let pathToFile = `imgs/pngs/${index}.png`;
+    let uploadImgFleName =
+      'imgs/upload/' + teamMetadata['name'].toLowerCase().replace(/\s/g, '-');
+    let pathToNewDestination = uploadImgFleName + '.png';
+    fs.copyFile(pathToFile, pathToNewDestination, function (err) {
+      if (err) {
+        throw err;
+      } else {
+        console.log(
+          'Successfully copied and moved the PNG to upload directory!',
+        );
+      }
+    });
 
-    if (
-      fs.existsSync(
-        'metadata/' +
-          teamMetadata['name'].toLowerCase().replace(/\s/g, '-') +
-          '.json',
-      )
-    ) {
-      console.log('test');
-      continue;
-    }
-
+    // Create and write the metadata JSON file
     teamMetadata['attributes'][0]['value'] =
       teamOverview['engagement'].toNumber();
     teamMetadata['attributes'][1]['value'] = teamOverview['energy'].toNumber();
@@ -92,6 +95,8 @@ task('metadata', 'Generate metadata').setAction(async (taskArgs, hre) => {
     let data = JSON.stringify(teamMetadata);
     fs.writeFileSync(filename + '.json', data);
     console.log(`\t ${filename}.json`);
+
+    index++;
   }
 });
 
